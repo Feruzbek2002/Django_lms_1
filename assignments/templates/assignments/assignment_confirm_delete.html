@@ -1,0 +1,29 @@
+{% extends 'assignments/assignment_base.html' %}
+
+{% block title_name %}
+    LMS - Confirmation
+{% endblock title_name %}
+    
+
+{% block main_content %}
+    {% if user.user_type == 2 %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Ushbu topshiriqni o'chirishni xohlaysizmi?</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="O'chirishni tasdiqlash" class="btn btn-danger btn-large">
+                    <a href="{% url 'assignments:detail' pk=assignment.pk %}" class="btn btn-primary btn-large">ortga</a>
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Sizga topshiriqni o'chirishga ruxsat berilmaydi !!!</h2>
+            </div>
+        </div>
+    {% endif %}
+        
+{% endblock main_content %}
+    

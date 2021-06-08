@@ -1,0 +1,70 @@
+{% extends 'assignments/assignment_base.html' %}
+{% load bootstrap4 %}
+
+{% block title_name %}
+    LMS - {{assignment.assignment_name}}
+{% endblock title_name %}
+    
+
+{% block main_content %}
+    <div class="container">
+        <h1>{{assignment.assignment_name}}</h1>
+        <h4>Kurs: {{assignment.course}}</h4>
+        <h6>Topshiriq berilish sanasi: {{assignment.start_date}}</h6>
+        <h6>Topshiriq javoblarini yuklash sanasi: {{assignment.due_date}}</h6>
+        
+        <p>Izoh: {{assignment.assignment_description}}</p>
+        {% if user.user_type == 2 %}
+            <a href="{% url 'assignments:update' pk=assignment.pk %}" class="btn btn-warning btn-lg">Uzgartirish</a>
+            <a href="{% url 'assignments:delete' pk=assignment.pk %}" class="btn btn-danger btn-lg">Uchirib yuborish</a>
+
+            <div class="submissions">
+            <h3>Tastiqlash</h3>
+            
+            {% for submissions in submitted %}
+                <a href="{% url 'assignments:submit_detail' pk=submissions.pk %}" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{submissions.topic}}</h5>
+                    <small>{{submissions.author}}</small>
+                    </div>
+                    <p class="mb-1">
+                    {{submissions.description}}
+                    </p>
+                    <small>Topshiriq berilgan sana: {{submissions.submitted_date}}</small><br>
+                </a>
+            {% empty %}
+                <h6>Tastiqlanmagan</h6>
+            {% endfor %}
+            </div>
+                
+
+        {% else %}            
+            {% if assignment.course in course %}
+                {% if duedate >= time %}
+                    <a href="{% url 'assignments:submit' %}" class="btn btn-success btn-lg">topshiriqni yuklash</a>
+                {% endif %}
+                <div class="submissions">
+                <h3>Mening yuklagan topshiriqlarim:</h3>
+                
+                {% for submissions in submitted %}
+                    {% if submissions.author.id == user.id %}
+                        <a href="{% url 'assignments:submit_detail' pk=submissions.pk %}" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{submissions.topic}}</h5>
+                            <small>{{submissions.author}}</small>
+                            </div>
+                            <p class="mb-1">
+                            {{submissions.description}}
+                            </p>
+                            <small>Start Date: {{submissions.submitted_date}}</small><br>
+                        </a>
+                    {% endif %}
+                {% empty %}
+                    <h6>hozircha yuklangan topshiriq mavjud emas</h6>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock main_content %}
+    

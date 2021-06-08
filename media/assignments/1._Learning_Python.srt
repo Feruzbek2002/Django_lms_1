@@ -1,0 +1,99 @@
+1
+00:00:00,770 --> 00:00:02,750
+Now let's get started shall we.
+
+2
+00:00:02,750 --> 00:00:11,240
+In order for any programmer to learn a language there are four key things that you need to really master
+
+3
+00:00:11,480 --> 00:00:14,870
+for any sort of language including python.
+
+4
+00:00:14,870 --> 00:00:18,830
+First are the terms of that language.
+
+5
+00:00:18,830 --> 00:00:25,640
+Sometimes a programming language has different awards and different definitions for these words that
+
+6
+00:00:25,820 --> 00:00:35,330
+you're going to have to memorize things like statements variables instantiation really complicated sounding
+
+7
+00:00:35,330 --> 00:00:40,700
+words but you need to understand what they mean so that you can talk to other programmers.
+
+8
+00:00:40,700 --> 00:00:51,050
+You also need to learn about a languages data type that is what sort of data can a program hold.
+
+9
+00:00:51,240 --> 00:00:55,080
+You can think of it as a values just like in real life.
+
+10
+00:00:55,080 --> 00:01:00,090
+We have different ways to represent values like numbers letters and symbols.
+
+11
+00:01:00,090 --> 00:01:07,140
+In programming we have these data types to store information and each programming language has different
+
+12
+00:01:07,140 --> 00:01:09,060
+sort of data types.
+
+13
+00:01:09,060 --> 00:01:12,040
+Next we need to learn about actions.
+
+14
+00:01:12,180 --> 00:01:20,040
+At the end of the day all programming is is a way for us to tell our machines Hey store this data and
+
+15
+00:01:20,040 --> 00:01:23,640
+then retrieve this data and perform some action on it.
+
+16
+00:01:23,670 --> 00:01:28,050
+That's all it is just using memory and performing some actions.
+
+17
+00:01:28,050 --> 00:01:35,100
+So we're going to learn how to perform those actions and then finally we have to learn the best practices
+
+18
+00:01:35,310 --> 00:01:36,770
+of each language.
+
+19
+00:01:36,850 --> 00:01:42,840
+There's good ways of writing Python code and then there's bad ways so that when we build our applications
+
+20
+00:01:42,840 --> 00:01:49,770
+our programs while we don't have a leaning tower like this but we have a solid structure and a solid
+
+21
+00:01:49,770 --> 00:01:50,700
+program.
+
+22
+00:01:50,700 --> 00:01:54,610
+So throughout the course we're going to learn about these things but keep this in mind.
+
+23
+00:01:54,630 --> 00:02:01,230
+These four things are why you need to become a good programmer and I want to start the basic Python
+
+24
+00:02:01,320 --> 00:02:03,840
+section with the data types.
+
+25
+00:02:03,990 --> 00:02:04,770
+So let's get started.

@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+{% load bootstrap4 %}
+
+{% block body_content %}
+    
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="jumbotron">
+                <h2>Siz allaqachon tizimga kirgansiz. Boshqa foydalanuvchi sifatida kirish uchun tizimdan chiqing.</h2>
+            </div>
+        </div>
+    
+    {% else %}
+
+    <div class="container">
+        <h1>Kirish</h1>
+        <form method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" class="btn btn-primary" value="Login">
+        </form>
+    </div>
+
+    {% endif %}
+
+{% endblock body_content %}
+    

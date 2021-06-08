@@ -1,0 +1,158 @@
+{% extends 'courses/course_base.html' %}
+
+{% block title_name %}
+LMS - {{course.course_name}}
+{% endblock title_name %}
+
+{% block main_content %}
+<style>
+  .rating-area {
+    overflow: hidden;
+    width: 250px;
+    margin: 0 auto;
+  }
+
+  .rating-area:not(:checked)>input {
+    display: none;
+  }
+
+  .rating-area:not(:checked)>label {
+    float: right;
+    width: 42px;
+    padding: 0;
+    cursor: pointer;
+    font-size: 32px;
+    line-height: 32px;
+    color: lightgrey;
+    text-shadow: 1px 1px #bbb;
+  }
+
+  .rating-area:not(:checked)>label:before {
+    content: '★';
+  }
+
+  .rating-area>input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px #c60;
+  }
+
+  .rating-area:not(:checked)>label:hover,
+  .rating-area:not(:checked)>label:hover~label {
+    color: gold;
+  }
+
+  .rating-area>input:checked+label:hover,
+  .rating-area>input:checked+label:hover~label,
+  .rating-area>input:checked~label:hover,
+  .rating-area>input:checked~label:hover~label,
+  .rating-area>label:hover~input:checked~label {
+    color: gold;
+    text-shadow: 1px 1px goldenrod;
+  }
+
+  .rate-area>label:active {
+    position: relative;
+  }
+</style>
+
+<body>
+  <h1>{{course.course_name}}</h1>
+  <h4>Ustoz: {{course.teacher}}</h4>
+  <p>Izoh: {{course.course_description}}</p>
+  <br>
+
+  {% if user.user_type == 1 %} {%if user in course.students.all%}
+  <a href="{% url 'courses:unenroll' pk=course.pk %}" class="btn btn-danger btn-lg">Guruxdan chiqish</a>
+  {% else %}
+  <a href="{% url 'courses:enroll' pk=course.pk %}" class="btn btn-success btn-lg">Guruxga qushilish</a>
+  {% endif %}
+  {% endif %}
+
+  {% if course.teacher.id == user.id or user in course.students.all%}
+  {% if user.user_type == 2 %}
+  <a href="{% url 'assignments:create' %}" class="btn btn-lg btn-fill btn-warning button-stretch">
+    <i class="fa fa-plus-circle" aria-hidden="true">Yangi topshiriq yaratish</i>
+  </a>
+  <a href="{% url 'resources:create' %}" class="btn btn-lg btn-fill btn-info button-stretch">
+    <i class="fa fa-plus-circle" aria-hidden="true">Yangi videodars qushish</i>
+  </a>
+  {% endif %}
+
+  <div class="resources" >
+    <h3 style="font-family: Verdana, Arial, Helvetica, sans-serif;">Videodarslar</h3>
+    <ul class="list-group">
+      {% for resource in resources %}
+      <div class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+          <h2 style="border-style: solid;">{{resource.resource_name}}</h2>
+        </div>
+        <div class="embed-responsive embed-responsive-16by9">
+          <video width="600" height="350" controls>
+            <source src="{{resource.resource_file.url}}" type="video/mp4">
+            Your browser does not support HTML video.
+          </video>
+        </div>
+
+        <div class="rating-area">
+          <input type="radio" id="star-5" name="rating" value="5">
+          <label for="star-5" title="Оценка «5»"></label>
+          <input type="radio" id="star-4" name="rating" value="4">
+          <label for="star-4" title="Оценка «4»"></label>
+          <input type="radio" id="star-3" name="rating" value="3">
+          <label for="star-3" title="Оценка «3»"></label>
+          <input type="radio" id="star-2" name="rating" value="2">
+          <label for="star-2" title="Оценка «2»"></label>
+          <input type="radio" id="star-1" name="rating" value="1">
+          <label for="star-1" title="Оценка «1»"></label>
+        </div>
+
+        {% if user.id == course.teacher.id %}
+        <small><a href="{% url 'resources:delete' pk=resource.pk %}" class="btn btn-sm btn-danger">Uchirish</a></small>
+        {% endif %}
+      </div>
+      {% empty %}
+      <h6>Hozircha videodars mavjud emas :)</h6>
+      {% endfor %}
+    </ul>
+  </div>
+  <a name="Topshiriqlar" id="assigment" class="btn btn-primary" href="#" role="button">Topshiriqlar</a>
+  <div class="assignments">
+    <h3>Topshiriqlar</h3>
+    <ul class="list-group">
+      {% for assignment in assignments %}
+      <a href="{% url 'assignments:detail' pk=assignment.pk %}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{assignment.assignment_name}}</h5>
+        </div>
+        <p class="mb-1">
+          {{assignment.assignment_description}}
+        </p>
+        <small>Topshiriq berilgan vaqti: {{assignment.start_date}}</small><br>
+        <small>Topshiriqni yuklash vaqti: {{assignment.due_date}} {{assignment.due_time}}</small>
+      </a>
+      {% empty %}
+      <h6>Hozircha topshiriq yuq :)</h6>
+      {% endfor %}
+    </ul>
+  </div>
+
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".assignments").hide();
+  });
+  $(document).ready(function () {
+    $("#assigment").click(function () {
+      $(".assignments").toggle();
+    });
+  });
+</script>
+
+
+
+
+{% endif %}
+
+{% endblock main_content %}
